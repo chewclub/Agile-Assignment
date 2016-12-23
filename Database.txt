@@ -1,0 +1,88 @@
+CREATE TABLE "MEMBER"(
+   "MID" VARCHAR(5) not null primary key,
+   "MNAME" VARCHAR(50),
+   "MIC" VARCHAR(13) ,
+   "MGENDER" VARCHAR(10),
+   "MCONTACT" INTEGER  	
+);
+CREATE TABLE "STAFF"(
+    "SID" VARCHAR(5) not null primary key,
+    "SNAME" VARCHAR(50),
+    "SPASSWORD" VARCHAR (18),
+    "SGENDER" VARCHAR(10),
+    "SPOSITION" VARCHAR(15),
+    "SCONTACT" INTEGER
+);
+CREATE TABLE "INSURANCE"(
+    "INSURANCEID" VARCHAR(5) not null primary key,
+    "DESCRIPTION" VARCHAR(200),
+    "PRICE" DOUBLE
+);
+
+CREATE TABLE Bus(
+    BusNO INTEGER not null primary key,
+    NumberofSeat INTEGER,
+    "SID" VARCHAR(5),
+    "BPlate" VARCHAR(10),
+    foreign key (SID) references STAFF(SID)
+);
+CREATE TABLE Schedule(
+    "ScheduleNO" VARCHAR(5) not null primary key,
+    "Date1" VARCHAR(20),
+    "Time1" VARCHAR(20),
+    "Startingpoint" VARCHAR(20),
+    "Destination" VARCHAR(20),
+    "BUSNO" INTEGER,
+    "Price" Double,
+    "Available" INTEGER,
+    foreign key (BUSNO) references Bus(BusNO)
+);
+CREATE TABLE Purchase(
+    "PURCHASEID" VARCHAR(5) not null primary key,
+    "MID" VARCHAR(5),
+    "SID" VARCHAR(5),
+    "INSURANCEID" VARCHAR(5),
+    "ScheduleNO" VARCHAR(5),
+    "Price" Double,
+    "SeatID" VARCHAR(7),
+    "PDate" Date,
+    foreign key (MID) references MEMBER(MID),
+    foreign key (SID) references STAFF(SID),
+    foreign key (INSURANCEID) references INSURANCE(INSURANCEID),
+    foreign key ("ScheduleNO") references "SCHEDULE"("ScheduleNO")
+);
+CREATE TABLE Payment(
+    "PaymentID" VARCHAR(5) not null primary key,
+    "PURCHASEID" VARCHAR(5),
+    "PaymentMethod" VARCHAR(5),
+    "Amount" DOUBLE,
+    "SID" VARCHAR(5),
+    "PDate" Date,
+    foreign key (PURCHASEID) references PURCHASE(PURCHASEID),
+    foreign key (SID) references STAFF(SID)
+);
+
+CREATE TABLE Seat(
+    "SeatID" VARCHAR(5) not null primary key,
+    "S01" Boolean,
+    "S02" Boolean,
+    "S03" Boolean,
+    "S04" Boolean,
+    "S05" Boolean,
+    "S06" Boolean,
+    "S07" Boolean,
+    "S08" Boolean,
+    "S09" Boolean,
+    "S10" Boolean,
+    "S11" Boolean,
+    "S12" Boolean,
+    "S13" Boolean,
+    "S14" Boolean,
+    "S15" Boolean,
+    "S16" Boolean,
+    "S17" Boolean,
+    "S18" Boolean,
+    "S19" Boolean,
+    "S20" Boolean
+);
+
